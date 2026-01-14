@@ -68,9 +68,8 @@ int resolve_ipv4(const char *host, struct sockaddr_in *out, char *ip_str, size_t
     }
 
     memcpy(out, res->ai_addr, sizeof(struct sockaddr_in));
-    inet_ntop(AF_INET, &out->sin_addr, ip_str, (socklen_t)ip_str_sz); 
+    inet_ntop(AF_INET, &out->sin_addr, ip_str, (socklen_t)ip_str_sz);
 
     freeaddrinfo(res);
     return 0;
 }
-
