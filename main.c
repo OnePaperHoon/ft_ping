@@ -106,7 +106,7 @@ int main(int ac, char **av)
                         break;
                     }
                     
-                    // 더 읽을 게 없으면 빠져나오기(블로킹 방지)
+                    // 더 읽을 게 없으면 빠져나오기
                     int rr = wait_readable(sock, 0);
                     if (rr <= 0)
                         break;
