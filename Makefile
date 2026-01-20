@@ -27,7 +27,7 @@ all : $(NAME)
 
 $(NAME) : $(OBJS_MAND)
 	@echo $(CURSIVE)$(YELLOW) "      - Making $(NAME) -" $(NONE)
-	@$(CC) $(CFLAGS) $^ -o $@ 
+	@$(CC) $(CFLAGS) $^ -lm -o $@ 
 	@echo $(CURSIVE)$(YELLOW) "      - Compiling $(NAME) -" $(NONE)
 	@echo $(GREEN) "      - ft_ping Complete -"$(NONE)
 

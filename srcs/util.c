@@ -52,6 +52,19 @@ int no_ac(void)
     return (64);
 }
 
+
+/* 
+ * Function: resolve_ipv4
+ * ----------------------
+ * 도메인 네임을 IPv4 주소로 변환
+ *
+ * host: 변환할 도메인 네임
+ * out: 변환된 IPv4 주소가 저장될 sockaddr_in 구조체 포인터
+ * ip_str: 변환된 IPv4 주소의 문자열 표현이 저장될 버퍼
+ * ip_str_sz: ip_str 버퍼의 크기
+ *
+ * returns: 성공 시 0, 실패 시 -1
+ */
 int resolve_ipv4(const char *host, struct sockaddr_in *out, char *ip_str, size_t ip_str_sz)
 {
     struct addrinfo hints;
@@ -73,3 +86,35 @@ int resolve_ipv4(const char *host, struct sockaddr_in *out, char *ip_str, size_t
     freeaddrinfo(res);
     return 0;
 }
+
+int wait_readable(int sock, int timeout_ms)
+{
+    fd_set rfds;
+    FD_ZERO(&rfds);
+    FD_SET(sock, &rfds);
+
+    struct timeval tv;
+    tv.tv_sec = timeout_ms / 1000;
+    tv.tv_usec = (timeout_ms % 1000) * 1000;
+
+    int r = select(sock + 1, &rfds, NULL, NULL, &tv);
+    return r; // 0 = timeout, 1 = readable, -1 = error
+}
+
+long long now_ms(void)
+{
+    struct timeval tv;
+    gettimeofday(&tv, NULL);
+    return (long long)tv.tv_sec * 1000LL + tv.tv_usec / 1000;
+}
+
+void sleep_ms(long long ms)
+{
+    if (ms <= 0)
+        return;
+    struct timespec ts;
+    ts.tv_sec = ms / 1000;
+    ts.tv_nsec = (ms % 1000) * 1000000L;
+    nanosleep(&ts, NULL);
+}
+
