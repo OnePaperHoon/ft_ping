@@ -7,7 +7,13 @@
 #include <arpa/inet.h>
 #include <string.h>
 #include <stdio.h>
+#ifdef __linux__
+    #include <netinet/ip.h>
+#else
+    #include <netinet/ip.h>
+#endif
 #include <netinet/ip_icmp.h>
+#include <netinet/in.h>
 #include <sys/time.h>
 #include <errno.h>
 #include <sys/socket.h>
@@ -19,6 +25,7 @@
 #include <time.h>
 #include <signal.h>
 #include <math.h>
+#include <stdint.h>
 
 #define PAYLOAD_SIZE 56
 

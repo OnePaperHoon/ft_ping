@@ -1,6 +1,5 @@
 #include "../include/ft_ping.h"
-#include <netinet/ip_icmp.h>
-#include <stdint.h>
+
 
 /* 
  * Function: open_icmp_socket
